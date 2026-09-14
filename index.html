@@ -2,250 +2,380 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0f172a">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0f1214">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
-<title>Ruleta Lab 18ero</title>
+<title>Ruleta Lab - Sector 6</title>
 <style>
-body{font-family:system-ui; background:#0f172a; color:white; padding:10px; margin:0}
-h2{margin:6px 0; font-size:20px}
-h3{margin:10px 0 4px 0; color:#fbbf24}
-input{font-size:32px; width:90px; text-align:center; border-radius:10px; border:none; padding:8px}
-button{font-size:17px; padding:12px 18px; margin:4px; border:none; border-radius:10px; font-weight:bold}
-#bJugar{background:#22c55e; color:#000}
-#bReset{background:#334155; color:white}
-.card{background:#1e293b; padding:10px; border-radius:12px; margin:6px 0; border-left:5px solid #475569}
-.card.jugar{border-left-color:#22c55e; background:#14532d; animation:pulse 1s infinite}
-@keyframes pulse{0%{transform:scale(1)} 50%{transform:scale(1.02)} 100%{transform:scale(1)}}
-.small{font-size:12px; color:#94a3b8}
-.top{position:sticky; top:0; background:#0f172a; padding:10px 0; z-index:10}
+:root{--bg:#0f1214;--card:#1b2024;--accent:#00e676;--red:#ff5367;--text:#e8e8e8;--muted:#8a9199;--line:#2a3238;--gold:#fbbf24}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto;max-width:480px;margin-inline:auto}
+.top{position:sticky;top:0;z-index:20;background:var(--bg);padding:7px 9px;border-bottom:1px solid var(--line)}
+h1{font-size:17px;margin:0 0 5px;text-align:center}
+.sub{font-size:10px;color:var(--muted);text-align:center;margin-bottom:6px}
+.row{display:flex;gap:5px}
+input[type=number]{flex:1;min-width:0;background:#fff;border:0;border-radius:10px;padding:8px;font-size:25px;text-align:center}
+button{border:0;border-radius:10px;padding:9px 11px;font-weight:800;font-size:14px}
+.btn-add{background:var(--accent);color:#000;flex:0 0 88px}
+.btn-new{background:#39434b;color:#fff;flex:0 0 92px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:5px}
+.kpi{background:var(--card);border-radius:8px;padding:5px;text-align:center}
+.kpi b{display:block;font-size:17px}
+.kpi span{font-size:9px;color:#cbd5e1}
+#saldoBox{border:1px solid var(--accent)}
+#resultadoBox.neg{border:1px solid var(--red)}
+#resultadoBox.pos{border:1px solid var(--gold)}
+.status{font-size:10px;color:var(--muted);margin-top:4px;text-align:center}
+.content{padding:7px 9px 20px}
+.card{background:var(--card);border-radius:12px;padding:10px;margin-bottom:7px;border-left:4px solid #475569}
+.card.active{background:#103d2a;border-left-color:var(--accent)}
+.badge{display:inline-block;font-size:10px;font-weight:800;border-radius:20px;padding:3px 7px;background:var(--line);color:var(--muted)}
+.active .badge{background:var(--accent);color:#000}
+.nums{font-size:20px;font-weight:900;letter-spacing:.5px;margin:6px 0;line-height:1.35}
+.detail{font-size:12px;color:#cbd5e1}
+.detail b{color:#fff}
+.bigbet{font-size:16px;font-weight:900;margin:4px 0;color:#fff}
+.last-list{display:flex;flex-wrap:wrap;gap:4px;max-height:58px;overflow-y:auto}
+.ball{width:27px;height:27px;border-radius:50%;background:#2a3238;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.ball.win{background:var(--accent);color:#000}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:7px}
+.smallbtn{background:#2a3238;color:#ddd;font-size:12px;padding:8px}
+.sector-list{font-size:11px;color:var(--muted);max-height:120px;overflow-y:auto}
+.sector-item{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px solid #232a2f}
+.sector-item.hot{color:var(--red);font-weight:800}
+.sector-item.ready{color:var(--gold);font-weight:800}
+details{background:var(--card);border-radius:12px;padding:9px;margin-bottom:7px}
+summary{cursor:pointer;font-weight:800;color:var(--gold);font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:8px}
+.stat{background:#11161a;border-radius:8px;padding:6px;text-align:center}
+.stat b{display:block;font-size:16px}
+.stat span{font-size:9px;color:var(--muted)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:18px;z-index:100}
+.modal.hidden{display:none}
+.modal-card{background:var(--card);border:1px solid #46515a;border-radius:16px;padding:18px;width:min(360px,100%);text-align:center}
+.modal-card h2{margin:0 0 8px}
+.modal-card input{width:140px;background:#fff}
+.modal-card button{width:100%;margin-top:9px;background:var(--accent);color:#000}
+.stop{border:1px solid var(--gold);background:#3a2a08;border-radius:12px;padding:10px;margin-bottom:7px;font-weight:800}
 </style>
 </head>
 <body>
-<div class="top">
-<h2>🇨🇱 Ruleta Lab - Anticucho Edition</h2>
-<input id="num" type="number" min="0" max="36" placeholder="N°" inputmode="numeric">
-<button id="bJugar" onclick="add()">¡TIRÓ!</button>
-<button id="bReset" onclick="resetApp()">Reset</button>
-<div id="status" class="small">Giros: 0 - Esperando chicha...</div>
+
+<div id="startModal" class="modal">
+  <div class="modal-card">
+    <h2>🎯 Nueva sesión</h2>
+    <div>Fichas iniciales</div>
+    <input id="initialBank" type="number" min="1" step="1" value="500" inputmode="numeric">
+    <div class="detail" style="margin-top:7px">Objetivo: detener la sesión al alcanzar +100 fichas.</div>
+    <button onclick="startSession()">Confirmar e iniciar</button>
+  </div>
 </div>
 
-<div id="lista"></div>
+<div class="top">
+  <h1>🇨🇱 Ruleta Lab · Sector 6</h1>
+  <div class="sub">6 números consecutivos de rueda · dormido 12 · escala 12 pasos · stop +100</div>
+  <div class="row">
+    <input type="number" id="num" min="0" max="36" placeholder="0-36" inputmode="numeric">
+    <button class="btn-add" id="btnAdd" onclick="addFromInput()">¡TIRÓ!</button>
+    <button class="btn-new" onclick="newSession()">Nueva</button>
+  </div>
+  <div class="kpis">
+    <div class="kpi" id="saldoBox"><b id="saldo">—</b><span>SALDO</span></div>
+    <div class="kpi" id="resultadoBox"><b id="resultado">—</b><span>GAN./PÉRD.</span></div>
+    <div class="kpi"><b id="spins">0</b><span>GIROS</span></div>
+  </div>
+  <div class="status" id="status">Esperando inicio...</div>
+</div>
+
+<div class="content">
+  <div id="stopBox"></div>
+
+  <div class="card" id="betCard" style="display:none">
+    <span class="badge">APUESTA ACTIVA</span>
+    <div class="detail" style="margin-top:5px">SECTOR APOSTANDO</div>
+    <div class="nums" id="betNums"></div>
+    <div class="bigbet" id="betMain"></div>
+    <div class="detail" id="betDetail"></div>
+  </div>
+
+  <div class="card" id="waitCard">
+    <span class="badge">ESPERANDO SECTOR DORMIDO</span>
+    <div class="detail" id="waitText" style="margin-top:7px">Ingrese números...</div>
+  </div>
+
+  <div class="card">
+    <div class="detail" style="font-weight:800;margin-bottom:5px">ÚLTIMOS</div>
+    <div class="last-list" id="lastList"></div>
+    <div class="actions">
+      <button class="smallbtn" onclick="undoLast()">↩ Deshacer</button>
+      <button class="smallbtn" onclick="newSession()">⟳ Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="detail" style="font-weight:800;margin-bottom:5px">TOP DORMIDOS</div>
+    <div class="sector-list" id="sectorList"></div>
+  </div>
+
+  <details>
+    <summary id="summaryLine">📊 Resumen de sesión</summary>
+    <div class="stats">
+      <div class="stat"><b id="cycles">0</b><span>CICLOS</span></div>
+      <div class="stat"><b id="wins">0</b><span>GANADOS</span></div>
+      <div class="stat"><b id="losses">0</b><span>PERDIDOS</span></div>
+      <div class="stat"><b id="wagered">0</b><span>APOSTADO</span></div>
+      <div class="stat"><b id="maxBank">—</b><span>MÁX. SALDO</span></div>
+      <div class="stat"><b id="minBank">—</b><span>MÍN. SALDO</span></div>
+    </div>
+  </details>
+</div>
 
 <script>
-const ROJOS = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
+const WHEEL=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+const SECTORS=[];
+for(let i=0;i<37;i++){
+  const nums=[];
+  for(let j=0;j<6;j++) nums.push(WHEEL[(i+j)%37]);
+  SECTORS.push({start:WHEEL[i],nums});
+}
+const SCALE=[1,1,1,2,2,3,3,4,5,6,7,8];
+const THRESHOLD=12;
+const TARGET=100;
 
-const APUESTAS = {
- "Rojo": {nums: [...ROJOS], espera:9, max:8, paga:1, tipo:"SIMPLE"},
- "Negro": {nums: [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35], espera:9, max:8, paga:1, tipo:"SIMPLE"},
- "Par": {nums: [2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36], espera:9, max:8, paga:1, tipo:"SIMPLE"},
- "Impar": {nums: [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35], espera:9, max:8, paga:1, tipo:"SIMPLE"},
- "Falta (1-18)": {nums: [...Array(18).keys()].map(x=>x+1), espera:9, max:8, paga:1, tipo:"SIMPLE"},
- "Pasa (19-36)": {nums: [...Array(18).keys()].map(x=>x+19), espera:9, max:8, paga:1, tipo:"SIMPLE"},
- "Docena1": {nums: [...Array(12).keys()].map(x=>x+1), espera:12, max:10, paga:2, tipo:"DOCENA"},
- "Docena2": {nums: [...Array(12).keys()].map(x=>x+13), espera:12, max:10, paga:2, tipo:"DOCENA"},
- "Docena3": {nums: [...Array(12).keys()].map(x=>x+25), espera:12, max:10, paga:2, tipo:"DOCENA"},
- "Columna1": {nums: [1,4,7,10,13,16,19,22,25,28,31,34], espera:12, max:10, paga:2, tipo:"COLUMNA"},
- "Pareja Negra": {nums: [2,4,6,8,10,20,22,24,26,28], espera:14, max:10, paga:2.6, tipo:"DOBLE"},
- "Seisena 1-6": {nums: [1,2,3,4,5,6], espera:18, max:12, paga:5, tipo:"SEISENA"},
- "Vecinos Cero": {nums: [22,18,29,7,28,12,35,3,26,0,32,15,19,4,21,2,25], espera:9, max:8, paga:1.5, tipo:"SECTOR"},
- "Tercio": {nums: [27,13,36,11,30,8,23,10,5,24,16,33], espera:12, max:10, paga:2, tipo:"SECTOR"},
- "Huerfanos": {nums: [17,34,6,1,20,14,31,9], espera:16, max:10, paga:3.5, tipo:"SECTOR"},
- "Pleno 0 (180->200)": {nums: [0], espera:180, max:20, paga:35, tipo:"PLENO ESTRELLA"}
-};
+let initialBank=0,bank=0,history=[],gaps=[],inBet=false,betSectorIdx=null,betStep=0;
+let cycles=0,wins=0,losses=0,totalWagered=0,maxBank=0,minBank=0,stopped=false,stopReason='';
 
-let historial=[];
-let estados={};
-
-for(let k in APUESTAS){
-  estados[k]={fallos:0, enJuego:false, cont:0, perdida:0, banca:0};
+function cleanState(){
+  history=[];gaps=new Array(37).fill(0);inBet=false;betSectorIdx=null;betStep=0;
+  cycles=0;wins=0;losses=0;totalWagered=0;stopped=false;stopReason='';
 }
 
-function add(){
+function startSession(){
+  const v=parseInt(document.getElementById('initialBank').value,10);
+  if(!Number.isFinite(v)||v<1){alert('Ingrese una cantidad válida.');return;}
+  if(!confirm(`¿Iniciar con ${v} fichas y detener al llegar a +100?`))return;
+  initialBank=v;bank=v;cleanState();maxBank=v;minBank=v;
+  document.getElementById('startModal').classList.add('hidden');
+  render();save();document.getElementById('num').focus();
+}
+
+function newSession(){
+  if(initialBank && !confirm('¿Comenzar una nueva sesión desde cero?')) return;
+  localStorage.removeItem('ruletaSector6');
+  initialBank=0;bank=0;cleanState();maxBank=0;minBank=0;
+  document.getElementById('initialBank').value='500';
+  document.getElementById('startModal').classList.remove('hidden');
+  render();
+}
+
+function updateGaps(n){
+  for(let i=0;i<37;i++) gaps[i]=SECTORS[i].nums.includes(n)?0:gaps[i]+1;
+}
+
+function chooseReadySector(){
+  if(inBet||stopped)return;
+  let max=-1,idx=-1;
+  for(let i=0;i<37;i++){
+    if(gaps[i]>max){max=gaps[i];idx=i;}
+  }
+  if(max>=THRESHOLD){
+    inBet=true;betSectorIdx=idx;betStep=0;cycles++;
+  }
+}
+
+function requiredNextBet(){
+  return inBet ? SCALE[betStep]*6 : 0;
+}
+
+function addFromInput(){
   const el=document.getElementById('num');
   const n=parseInt(el.value,10);
-
-  if(isNaN(n)||n<0||n>36) return;
-
-  historial.push(n);
+  if(!Number.isFinite(n)||n<0||n>36)return;
+  addNumber(n);
   el.value='';
-  el.focus();
-  actualizar(n);
-  guardar();
+  if(!stopped)el.focus();
 }
 
-function actualizar(ultimo){
-  let html='';
-  let jugadas=0;
+function addNumber(n){
+  if(stopped||!initialBank)return;
 
-  for(let nombre in APUESTAS){
-    const cfg=APUESTAS[nombre];
-    const st=estados[nombre];
-    const hit=cfg.nums.includes(ultimo);
+  if(inBet){
+    const per=SCALE[betStep];
+    const cost=per*6;
+    if(bank<cost){
+      stopped=true;stopReason=`Caja insuficiente: se necesitan ${cost} fichas y quedan ${bank}.`;
+      render();save();return;
+    }
 
-    if(!st.enJuego){
-      if(hit) st.fallos=0;
-      else st.fallos++;
+    bank-=cost;
+    totalWagered+=cost;
+    const hit=SECTORS[betSectorIdx].nums.includes(n);
+    updateGaps(n);
+    history.push(n);
 
-      if(st.fallos>=cfg.espera){
-        st.enJuego=true;
-        st.cont=0;
-      }
+    if(hit){
+      bank+=36*per;
+      wins++;
+      inBet=false;betSectorIdx=null;betStep=0;
+      chooseReadySector();
     }else{
-      st.cont++;
-
-      if(hit){
-        const gan=Math.max(1,Math.floor(st.perdida*0.20/cfg.paga)+1)*cfg.paga;
-        st.banca+=gan;
-        st.enJuego=false;
-        st.fallos=0;
-        st.cont=0;
-        st.perdida=0;
-      }else{
-        const apuesta=Math.max(1,Math.floor(st.perdida*0.20/cfg.paga)+1);
-        st.perdida+=apuesta;
-        st.banca-=apuesta;
-
-        if(st.cont>=cfg.max){
-          st.enJuego=false;
-          st.fallos=0;
-          st.cont=0;
-          st.perdida=0;
-        }
+      betStep++;
+      if(betStep>=SCALE.length){
+        losses++;
+        inBet=false;betSectorIdx=null;betStep=0;
+        chooseReadySector();
       }
     }
-
-    const clase=st.enJuego ? 'card jugar' : 'card';
-    const apuestaAct=st.enJuego
-      ? Math.max(1,Math.floor(st.perdida*0.20/cfg.paga)+1)
-      : 0;
-
-    if(st.enJuego) jugadas++;
-
-    if(st.enJuego || st.fallos > cfg.espera*0.7){
-      html += `<div class="${clase}">
-        <b>${nombre}</b>
-        <span class="small">${cfg.tipo} | paga ${cfg.paga}:1</span><br>
-        ${st.enJuego
-          ? `🔥 ¡JUGAR! ${st.cont}/${cfg.max} | Apuesta: ${apuestaAct} | Perd Acum: ${st.perdida}`
-          : `En espera: ${st.fallos}/${cfg.espera} (${Math.round(st.fallos/cfg.espera*100)}%)`
-        }
-        ${st.enJuego
-          ? `<br><span class="small">⚠️ Tu regla: parar en ${cfg.max}, no seguir a morir</span>`
-          : ''
-        }
-      </div>`;
-    }
+  }else{
+    updateGaps(n);
+    history.push(n);
+    chooseReadySector();
   }
 
-  if(jugadas===0){
-    html =
-      `<div class="card">
-        Esperando... no hay rachas raras todavía. Sigue metiendo números.
-        ${historial.length>20 ? `Llevas ${historial.length} giros.` : ''}
-      </div>` + html;
+  maxBank=Math.max(maxBank,bank);
+  minBank=Math.min(minBank,bank);
+
+  const result=bank-initialBank;
+  if(result>=TARGET){
+    stopped=true;
+    stopReason=`Objetivo cumplido: ${result>=0?'+':''}${result} fichas.`;
+  }else if(inBet && requiredNextBet()>bank){
+    stopped=true;
+    stopReason=`Caja insuficiente para la próxima apuesta: se necesitan ${requiredNextBet()} fichas y quedan ${bank}.`;
   }
 
-  const balance=Object.values(estados).reduce((a,b)=>a+b.banca,0);
-
-  document.getElementById('lista').innerHTML=html;
-  document.getElementById('status').innerHTML=
-    `Giros: ${historial.length} | Último: ${ultimo} | Jugadas activas: ${jugadas} | Balance sesión: ${balance} fichas`;
+  render();save();
 }
 
-function resetApp(){
-  if(!confirm('¿Borrar todo y partir de cero como después de la chicha?')) return;
+function replay(hist){
+  const bank0=initialBank;
+  cleanState();bank=bank0;maxBank=bank0;minBank=bank0;
+  for(const n of hist){
+    if(stopped) break;
+    addNumberReplay(n);
+  }
+}
 
-  historial=[];
+function addNumberReplay(n){
+  if(inBet){
+    const per=SCALE[betStep],cost=per*6;
+    if(bank<cost){stopped=true;stopReason='Caja insuficiente.';return;}
+    bank-=cost;totalWagered+=cost;
+    const hit=SECTORS[betSectorIdx].nums.includes(n);
+    updateGaps(n);history.push(n);
+    if(hit){bank+=36*per;wins++;inBet=false;betSectorIdx=null;betStep=0;chooseReadySector();}
+    else{betStep++;if(betStep>=SCALE.length){losses++;inBet=false;betSectorIdx=null;betStep=0;chooseReadySector();}}
+  }else{
+    updateGaps(n);history.push(n);chooseReadySector();
+  }
+  maxBank=Math.max(maxBank,bank);minBank=Math.min(minBank,bank);
+  const result=bank-initialBank;
+  if(result>=TARGET){stopped=true;stopReason=`Objetivo cumplido: +${result} fichas.`;}
+  else if(inBet&&requiredNextBet()>bank){stopped=true;stopReason='Caja insuficiente para la próxima apuesta.';}
+}
 
-  for(let k in estados){
-    estados[k]={fallos:0,enJuego:false,cont:0,perdida:0,banca:0};
+function undoLast(){
+  if(!history.length)return;
+  const hist=history.slice(0,-1);
+  replay(hist);render();save();
+}
+
+function render(){
+  const result=initialBank?bank-initialBank:0;
+  document.getElementById('saldo').textContent=initialBank?bank:'—';
+  document.getElementById('resultado').textContent=initialBank?(result>=0?'+':'')+result:'—';
+  document.getElementById('spins').textContent=history.length;
+  const rb=document.getElementById('resultadoBox');
+  rb.classList.toggle('neg',result<0);rb.classList.toggle('pos',result>0);
+
+  document.getElementById('status').textContent=initialBank
+    ? `Próxima apuesta total: ${requiredNextBet()} fichas · Escala ${inBet?(betStep+1)+'/'+SCALE.length:'—'}`
+    : 'Esperando inicio...';
+
+  document.getElementById('btnAdd').disabled=stopped;
+
+  const stop=document.getElementById('stopBox');
+  stop.innerHTML=stopped?`<div class="stop">🏁 ${stopReason}<br><span class="detail">Pulse “Nueva” para comenzar otra sesión.</span></div>`:'';
+
+  const betCard=document.getElementById('betCard');
+  const waitCard=document.getElementById('waitCard');
+
+  if(inBet){
+    betCard.style.display='block';waitCard.style.display='none';
+    const sec=SECTORS[betSectorIdx];
+    const per=SCALE[betStep],cost=per*6;
+    const currentResult=bank-initialBank;
+    const netIfHit=currentResult-cost+36*per;
+    document.getElementById('betNums').textContent=sec.nums.join(' · ');
+    document.getElementById('betMain').textContent=`🔥 ${per} por número = ${cost} fichas`;
+    document.getElementById('betDetail').innerHTML=
+      `Paso <b>${betStep+1}/${SCALE.length}</b> · Dormido actual <b>${gaps[betSectorIdx]}</b><br>`+
+      `Si acierta este giro, resultado sesión aprox.: <b>${netIfHit>=0?'+':''}${netIfHit}</b>`;
+  }else{
+    betCard.style.display='none';waitCard.style.display='block';
+    let maxGap=Math.max(...gaps),idx=gaps.indexOf(maxGap);
+    document.getElementById('waitText').textContent=history.length
+      ? `Sector más dormido: ${SECTORS[idx].nums.join('-')} · ${maxGap}/12`
+      : 'Ingrese números para comenzar.';
   }
 
-  localStorage.removeItem('ruletaLabEstado');
-  document.getElementById('lista').innerHTML='';
-  document.getElementById('status').innerHTML='Giros: 0 - ¡Vamos de nuevo!';
-  document.getElementById('num').focus();
+  const last=document.getElementById('lastList');
+  last.innerHTML='';
+  history.slice(-20).reverse().forEach(n=>{
+    const d=document.createElement('div');d.className='ball';d.textContent=n;
+    if(inBet&&SECTORS[betSectorIdx].nums.includes(n))d.classList.add('win');
+    last.appendChild(d);
+  });
+
+  const sorted=SECTORS.map((s,i)=>({s,i,g:gaps[i]})).sort((a,b)=>b.g-a.g).slice(0,8);
+  document.getElementById('sectorList').innerHTML=sorted.map(o=>{
+    const cls=o.g>=THRESHOLD?'sector-item ready':o.g>=10?'sector-item hot':'sector-item';
+    return `<div class="${cls}"><span>${o.s.nums.join('-')}</span><span>${o.g}</span></div>`;
+  }).join('');
+
+  document.getElementById('cycles').textContent=cycles;
+  document.getElementById('wins').textContent=wins;
+  document.getElementById('losses').textContent=losses;
+  document.getElementById('wagered').textContent=totalWagered;
+  document.getElementById('maxBank').textContent=initialBank?maxBank:'—';
+  document.getElementById('minBank').textContent=initialBank?minBank:'—';
+  document.getElementById('summaryLine').textContent=
+    `📊 Resumen: ${result>=0?'+':''}${result} · ciclos ${cycles} · G/P ${wins}/${losses}`;
 }
 
-function guardar(){
-  localStorage.setItem('ruletaLabEstado',JSON.stringify({historial,estados}));
+function save(){
+  if(!initialBank)return;
+  localStorage.setItem('ruletaSector6',JSON.stringify({
+    initialBank,bank,history,gaps,inBet,betSectorIdx,betStep,cycles,wins,losses,totalWagered,maxBank,minBank,stopped,stopReason
+  }));
 }
 
-function cargar(){
+function load(){
   try{
-    const datos=JSON.parse(localStorage.getItem('ruletaLabEstado'));
-    if(datos && Array.isArray(datos.historial) && datos.estados){
-      historial=datos.historial;
-      estados=datos.estados;
-
-      if(historial.length){
-        reconstruirDesdeHistorial();
-      }
+    const d=JSON.parse(localStorage.getItem('ruletaSector6'));
+    if(d&&d.initialBank){
+      Object.assign(window,{
+        initialBank:d.initialBank,bank:d.bank,history:d.history||[],gaps:d.gaps||new Array(37).fill(0),
+        inBet:!!d.inBet,betSectorIdx:d.betSectorIdx,betStep:d.betStep||0,cycles:d.cycles||0,
+        wins:d.wins||0,losses:d.losses||0,totalWagered:d.totalWagered||0,
+        maxBank:d.maxBank??d.initialBank,minBank:d.minBank??d.initialBank,stopped:!!d.stopped,stopReason:d.stopReason||''
+      });
+      document.getElementById('startModal').classList.add('hidden');
+      render();
+      return;
     }
-  }catch(e){
-    console.log('No se pudo recuperar la sesión anterior.');
-  }
+  }catch(e){}
+  gaps=new Array(37).fill(0);render();
 }
 
-function reconstruirDesdeHistorial(){
-  // Para evitar modificar dos veces los estados guardados, solo reconstruimos la pantalla.
-  const ultimo=historial[historial.length-1];
-  let html='';
-  let jugadas=0;
-
-  for(let nombre in APUESTAS){
-    const cfg=APUESTAS[nombre];
-    const st=estados[nombre];
-    const clase=st.enJuego ? 'card jugar' : 'card';
-    const apuestaAct=st.enJuego
-      ? Math.max(1,Math.floor(st.perdida*0.20/cfg.paga)+1)
-      : 0;
-
-    if(st.enJuego) jugadas++;
-
-    if(st.enJuego || st.fallos > cfg.espera*0.7){
-      html += `<div class="${clase}">
-        <b>${nombre}</b>
-        <span class="small">${cfg.tipo} | paga ${cfg.paga}:1</span><br>
-        ${st.enJuego
-          ? `🔥 ¡JUGAR! ${st.cont}/${cfg.max} | Apuesta: ${apuestaAct} | Perd Acum: ${st.perdida}`
-          : `En espera: ${st.fallos}/${cfg.espera} (${Math.round(st.fallos/cfg.espera*100)}%)`
-        }
-        ${st.enJuego
-          ? `<br><span class="small">⚠️ Tu regla: parar en ${cfg.max}, no seguir a morir</span>`
-          : ''
-        }
-      </div>`;
-    }
-  }
-
-  if(jugadas===0){
-    html=`<div class="card">Sesión recuperada. Sigue ingresando números.</div>`+html;
-  }
-
-  const balance=Object.values(estados).reduce((a,b)=>a+b.banca,0);
-
-  document.getElementById('lista').innerHTML=html;
-  document.getElementById('status').innerHTML=
-    `Giros: ${historial.length} | Último: ${ultimo} | Jugadas activas: ${jugadas} | Balance sesión: ${balance} fichas`;
-}
-
-document.getElementById('num').addEventListener('keydown',e=>{
-  if(e.key==='Enter') add();
-});
+document.getElementById('num').addEventListener('keydown',e=>{if(e.key==='Enter')addFromInput();});
 
 if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('service-worker.js').catch(()=>{});
-  });
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
 }
-
-cargar();
-document.getElementById('num').focus();
+load();
 </script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 {
-  "name": "Ruleta Lab 18ero",
-  "short_name": "Ruleta Lab",
+  "name": "Ruleta Lab - Sector 6",
+  "short_name": "Sector 6",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
-  "description": "Ruleta Lab - Anticucho Edition",
+  "background_color": "#0f1214",
+  "theme_color": "#0f1214",
+  "description": "Ruleta Lab - estrategia Sector 6 dormido 12",
   "icons": [
     {
       "src": "icon-192.png",
