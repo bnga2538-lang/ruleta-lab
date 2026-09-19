@@ -102,7 +102,7 @@ details.session-data .stats{gap:4px!important}.stat{padding:5px 2px!important;mi
 </div>
 
 <div class="top">
-  <h1>🇨🇱 Ruleta Lab · Sector 6 V2.2</h1>
+  <h1>🇨🇱 Ruleta Lab · Sector 6 V2.3</h1>
   <div class="sub">6 números consecutivos de rueda · dormido 12 · escala 12 pasos · stop +200</div>
   <div class="row">
     <input type="text" id="num" placeholder="0-36" inputmode="numeric">
@@ -353,7 +353,7 @@ function render(){
     const displayNums=[...sec.nums].sort((a,b)=>{
       const va=a==="00"?0.5:Number(a), vb=b==="00"?0.5:Number(b); return va-vb;
     });
-    document.getElementById('betNums').textContent=displayNums.join(' · ') + ` (${betDormido??THRESHOLD})`;
+    document.getElementById('betNums').textContent=displayNums.join(' · ') + ` (${gaps[betSectorIdx]??betDormido??THRESHOLD})`;
     document.getElementById('betMain').textContent=`🔥 APUESTA = ${per}`;
     document.getElementById('betDetail').innerHTML='';
   }else{
