@@ -60,7 +60,30 @@ summary{cursor:pointer;font-weight:800;color:var(--gold);font-size:13px}
 .modal-card button{width:100%;margin-top:9px;background:var(--accent);color:#000}
 .stop{border:1px solid var(--gold);background:#3a2a08;border-radius:12px;padding:10px;margin-bottom:7px;font-weight:800}
 </style>
-</head>
+<style>
+/* V2.1 Compacta — SOLO PRESENTACIÓN */
+body{padding:4px!important}.wrap{max-width:720px!important;margin:0 auto!important}
+h2{font-size:17px!important;margin:2px 0!important}.subtitle{font-size:10px!important;margin:1px 0 4px!important}
+.top{gap:4px!important;margin-bottom:3px!important}#num{font-size:23px!important;padding:5px!important;min-height:38px!important}
+button{padding:6px 8px!important;min-height:38px!important}.kpis{gap:4px!important;margin:3px 0!important}
+.kpi{padding:4px 2px!important;min-height:51px!important}.kpi b{font-size:23px!important}.kpi span{font-size:9px!important}
+.status{font-size:10px!important;margin:2px 0!important}.card{padding:8px!important;margin:5px 0!important;border-radius:12px!important}
+#betNums{font-size:24px!important;line-height:1.15!important;margin:3px 0!important}#betMain{font-size:18px!important;margin:2px 0!important}
+#betDetail{font-size:12px!important;margin:1px 0!important}
+details.session-data{margin-top:5px!important}details.session-data>summary{cursor:pointer;list-style:none;background:#26313a;border-radius:11px;padding:8px 10px;font-weight:800;color:#fbbf24;text-align:center}
+details.session-data>summary::-webkit-details-marker{display:none}
+details.session-data .card{margin:5px 0!important}details.session-data .last-list{gap:4px!important}
+details.session-data .ball{width:32px!important;height:32px!important;font-size:12px!important}
+details.session-data .actions button{font-size:13px!important;min-height:35px!important}
+details.session-data .stats{gap:4px!important}.stat{padding:5px 2px!important;min-height:52px!important}.stat b{font-size:18px!important}.stat span{font-size:8px!important}
+@media(max-width:480px){.top{grid-template-columns:minmax(0,1.55fr) minmax(92px,.7fr) minmax(88px,.65fr)!important}.top button{font-size:15px!important;padding:5px!important}#betNums{font-size:23px!important}}
+</style>
+<style>
+@media(max-width:480px){
+ .top{grid-template-columns:minmax(72px,.38fr) minmax(105px,.78fr) minmax(88px,.66fr)!important}
+ #num{width:100%!important;min-width:0!important}
+}
+</style></head>
 <body>
 
 <div id="startModal" class="modal">
@@ -79,7 +102,7 @@ summary{cursor:pointer;font-weight:800;color:var(--gold);font-size:13px}
 </div>
 
 <div class="top">
-  <h1>🇨🇱 Ruleta Lab · Sector 6 V2</h1>
+  <h1>🇨🇱 Ruleta Lab · Sector 6 V2.2</h1>
   <div class="sub">6 números consecutivos de rueda · dormido 12 · escala 12 pasos · stop +200</div>
   <div class="row">
     <input type="text" id="num" placeholder="0-36" inputmode="numeric">
@@ -110,31 +133,32 @@ summary{cursor:pointer;font-weight:800;color:var(--gold);font-size:13px}
     <div class="detail" id="waitText" style="margin-top:7px">Ingrese números...</div>
   </div>
 
-  <div class="card">
-    <div class="detail" style="font-weight:800;margin-bottom:5px">ÚLTIMOS</div>
-    <div class="last-list" id="lastList"></div>
-    <div class="actions">
-      <button class="smallbtn" onclick="undoLast()">↩ Deshacer</button>
-      <button class="smallbtn" onclick="newSession()">⟳ Reiniciar</button>
-    </div>
-  </div>
-
-
   <div id="sectorList" style="display:none"></div>
 
-  <details>
-    <summary id="summaryLine">📊 Resumen de sesión</summary>
-    <div class="stats">
-      <div class="stat"><b id="cycles">0</b><span>CICLOS</span></div>
-      <div class="stat"><b id="wins">0</b><span>GANADOS</span></div>
-      <div class="stat"><b id="losses">0</b><span>PERDIDOS</span></div>
-      <div class="stat"><b id="wagered">0</b><span>APOSTADO</span></div>
-      <div class="stat"><b id="maxBank">—</b><span>MÁX. SALDO</span></div>
-      <div class="stat"><b id="minBank">—</b><span>MÍN. SALDO</span></div>
-      <div class="stat"><b id="m50">—</b><span>+50 GIRO</span></div>
-      <div class="stat"><b id="m100">—</b><span>+100 GIRO</span></div>
-      <div class="stat"><b id="m150">—</b><span>+150 GIRO</span></div>
-      <div class="stat"><b id="m200">—</b><span>+200 GIRO</span></div>
+  <details class="session-data">
+    <summary>📊 Datos de sesión · tocar para abrir</summary>
+    <div class="card">
+      <div class="detail" style="font-weight:800;margin-bottom:5px">ÚLTIMOS</div>
+      <div class="last-list" id="lastList"></div>
+      <div class="actions">
+        <button class="smallbtn" onclick="undoLast()">↩ Deshacer</button>
+        <button class="smallbtn" onclick="newSession()">⟳ Reiniciar</button>
+      </div>
+    </div>
+    <div>
+      <div id="summaryLine" style="font-weight:800;color:#fbbf24;margin:6px 2px">📊 Resumen de sesión</div>
+      <div class="stats">
+        <div class="stat"><b id="cycles">0</b><span>CICLOS</span></div>
+        <div class="stat"><b id="wins">0</b><span>GANADOS</span></div>
+        <div class="stat"><b id="losses">0</b><span>PERDIDOS</span></div>
+        <div class="stat"><b id="wagered">0</b><span>APOSTADO</span></div>
+        <div class="stat"><b id="maxBank">—</b><span>MÁX. SALDO</span></div>
+        <div class="stat"><b id="minBank">—</b><span>MÍN. SALDO</span></div>
+        <div class="stat"><b id="m50">—</b><span>+50 GIRO</span></div>
+        <div class="stat"><b id="m100">—</b><span>+100 GIRO</span></div>
+        <div class="stat"><b id="m150">—</b><span>+150 GIRO</span></div>
+        <div class="stat"><b id="m200">—</b><span>+200 GIRO</span></div>
+      </div>
     </div>
   </details>
 </div>
@@ -156,11 +180,11 @@ const SCALE=[1,1,1,2,2,3,3,4,5,6,7,8];
 const THRESHOLD=12;
 const TARGET=200;
 
-let initialBank=0,bank=0,history=[],gaps=[],inBet=false,betSectorIdx=null,betStep=0;
+let initialBank=0,bank=0,history=[],gaps=[],inBet=false,betSectorIdx=null,betStep=0,betDormido=null;
 let cycles=0,wins=0,losses=0,totalWagered=0,maxBank=0,minBank=0,stopped=false,stopReason='',milestones={50:null,100:null,150:null,200:null};
 
 function cleanState(){
-  history=[];gaps=new Array(SECTORS.length).fill(0);inBet=false;betSectorIdx=null;betStep=0;
+  history=[];gaps=new Array(SECTORS.length).fill(0);inBet=false;betSectorIdx=null;betStep=0;betDormido=null;
   cycles=0;wins=0;losses=0;totalWagered=0;stopped=false;stopReason='';milestones={50:null,100:null,150:null,200:null};
 }
 
@@ -193,7 +217,7 @@ function chooseReadySector(){
     if(gaps[i]>max){max=gaps[i];idx=i;}
   }
   if(max>=THRESHOLD){
-    inBet=true;betSectorIdx=idx;betStep=0;cycles++;
+    inBet=true;betSectorIdx=idx;betStep=0;betDormido=max;cycles++;
   }
 }
 
@@ -329,10 +353,9 @@ function render(){
     const displayNums=[...sec.nums].sort((a,b)=>{
       const va=a==="00"?0.5:Number(a), vb=b==="00"?0.5:Number(b); return va-vb;
     });
-    document.getElementById('betNums').textContent=displayNums.join(' · ');
-    document.getElementById('betMain').textContent=`🔥 ${per} por número = ${cost} fichas`;
-    document.getElementById('betDetail').innerHTML=
-      `<b>${per} ficha${per===1?'':'s'} por número · Total ${cost}</b>`;
+    document.getElementById('betNums').textContent=displayNums.join(' · ') + ` (${betDormido??THRESHOLD})`;
+    document.getElementById('betMain').textContent=`🔥 APUESTA = ${per}`;
+    document.getElementById('betDetail').innerHTML='';
   }else{
     betCard.style.display='none';waitCard.style.display='block';
     let maxGap=Math.max(...gaps),idx=gaps.indexOf(maxGap);
@@ -372,7 +395,7 @@ function render(){
 function save(){
   if(!initialBank)return;
   localStorage.setItem('ruletaSector6V2',JSON.stringify({
-    initialBank,bank,history,gaps,inBet,betSectorIdx,betStep,cycles,wins,losses,totalWagered,maxBank,minBank,stopped,stopReason,rouletteType,milestones
+    initialBank,bank,history,gaps,inBet,betSectorIdx,betStep,betDormido,cycles,wins,losses,totalWagered,maxBank,minBank,stopped,stopReason,rouletteType,milestones
   }));
 }
 
@@ -383,7 +406,7 @@ function load(){
       rouletteType=d.rouletteType||"EU";buildSectors();
       Object.assign(window,{
         initialBank:d.initialBank,bank:d.bank,history:d.history||[],gaps:d.gaps||new Array(37).fill(0),
-        inBet:!!d.inBet,betSectorIdx:d.betSectorIdx,betStep:d.betStep||0,cycles:d.cycles||0,
+        inBet:!!d.inBet,betSectorIdx:d.betSectorIdx,betStep:d.betStep||0,betDormido:d.betDormido??null,cycles:d.cycles||0,
         wins:d.wins||0,losses:d.losses||0,totalWagered:d.totalWagered||0,
         maxBank:d.maxBank??d.initialBank,minBank:d.minBank??d.initialBank,stopped:!!d.stopped,stopReason:d.stopReason||'',milestones:d.milestones||{50:null,100:null,150:null,200:null}
       });
