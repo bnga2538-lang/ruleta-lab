@@ -1,11 +1,10 @@
 {
-  "name": "Ruleta Lab - Sector 6 V2.3",
-  "short_name": "Sector 6 V2.3",
+  "name": "Ruleta Lab Sector 6 V2.4 Experimental",
+  "short_name": "Ruleta V2.4",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0f1214",
   "theme_color": "#0f1214",
-  "description": "Sector 6: ruleta europea o americana, objetivo +200",
   "icons": [
     {
       "src": "icon-192.png",
