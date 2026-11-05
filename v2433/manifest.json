@@ -1,7 +1,8 @@
 
 {
-  "name": "Ruleta Lab V2.4.3.3",
-  "short_name": "Ruleta 24",
+ "name": "Ruleta Lab V2.4.3.3",
+"short_name": "Ruleta 24 V3",
+"id": "/ruleta-lab/v2433/",
   "description": "Ruleta Lab - Sector 6 - 24 pasos",
   "start_url": "./index.html",
   "scope": "./",
