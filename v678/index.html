@@ -1,1 +1,86 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101820"><link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><title>Ruletero 678 · V3.0</title><style>
+:root{color-scheme:dark;--bg:#101820;--panel:#1d2b35;--muted:#aec2cd;--ok:#36d6a3;--warn:#ffd174;--bad:#ff8292}*{box-sizing:border-box}body{margin:0 auto;max-width:640px;background:var(--bg);color:#f5f8fa;font:14px system-ui,Arial;padding:7px 9px 20px}header{display:flex;align-items:center;justify-content:space-between;gap:8px}h1{font-size:18px;margin:0}h2{font-size:14px;margin:0 0 6px}.muted,small{color:var(--muted)}.panel{background:var(--panel);border-radius:11px;padding:10px;margin:7px 0}.row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}select,input,button{background:#29414d;border:1px solid #58717e;border-radius:7px;padding:7px;color:#fff;font:inherit}button{font-weight:700;cursor:pointer}button.primary{background:var(--ok);color:#09241b;border:0}button:disabled{opacity:.45}input[type=number]{width:94px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.stat{background:#10202a;padding:8px 3px;border-radius:8px;text-align:center}.stat b{display:block;font-size:20px}.stat small{font-size:10px}.good{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}.bet{background:#123b30;border:1px solid var(--ok);border-radius:10px;padding:10px}.bet .big{font-size:25px;font-weight:900;color:var(--ok)}.betNums{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin:8px 0}.betNums span{background:#25564b;text-align:center;padding:8px 0;border-radius:6px;font-weight:800;font-size:17px}.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:6px}.keypad button{font-size:19px;min-height:35px;padding:2px}.keypad .enter{font-size:17px}.entry{display:flex;gap:6px;align-items:center}.draft{font-size:22px;font-weight:800;text-align:center;background:#10202a;border-radius:8px;padding:5px;flex:0 0 72px}.strategy{display:grid;grid-template-columns:50px 1fr auto;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid #425561}.strategy:last-child{border:0}.tag{background:#344a56;padding:5px;border-radius:6px;text-align:center;font-weight:800}.history{display:flex;flex-wrap:wrap;gap:4px;max-height:80px;overflow:auto}.chip{background:#354956;border-radius:5px;padding:4px 7px}.notice{background:#3e3320;border:1px solid #b18a45;padding:8px;border-radius:8px}.toast{background:#135b46;padding:7px;border-radius:8px;margin-top:6px}.hidden{display:none}details{margin-top:9px}summary{cursor:pointer;color:var(--warn)}table{border-collapse:collapse;width:100%;font-size:11px}td,th{padding:6px 4px;border-bottom:1px solid #41535f;text-align:left}label{font-size:12px}@media(max-width:430px){body{padding:5px 7px 12px}.panel{padding:8px;margin:5px 0}.stat b{font-size:17px}.stat small{font-size:9px}.betNums span{font-size:16px;padding:6px 0}.keypad button{min-height:34px}.row{gap:5px}}
+#betPanel{order:1}#entryPanel{order:2}#statsPanel{order:3}#chancesPanel{order:4}#observers{order:5}body{display:flex;flex-direction:column}header{order:0}body>section:first-of-type{order:6}body>section:last-of-type{order:7}.bet .big{font-size:28px}.betMeta{font-size:14px;margin-top:5px}.betNums{grid-template-columns:repeat(6,minmax(0,1fr))}.betNums span{font-size:19px}.chance{display:inline-block;background:#43371d;border-left:3px solid #ffd174;border-radius:5px;padding:6px 9px;margin:3px;font-size:12px}.keypad{grid-template-columns:repeat(3,1fr)}.keypad button{min-height:37px}.keypad .enter{font-size:15px}#entryPanel{padding:8px}#observers summary{font-weight:700}#betPanel{margin-top:8px}@media(max-width:430px){.betNums span{font-size:18px;padding:6px 0}.bet .big{font-size:25px}.keypad button{min-height:36px}}
+/* Teclado compacto S22: exactamente dos filas de seis teclas */
+#keypad.keypad{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;margin-top:5px}
+#keypad.keypad button{min-width:0;min-height:32px;height:34px;padding:0 1px;font-size:16px;border-radius:6px;touch-action:manipulation}
+#keypad.keypad button.enter{font-size:11px;letter-spacing:-.3px}
+#entryPanel{padding:6px 8px}
+#entryPanel .entry{min-height:32px}
+#entryPanel .draft{font-size:19px;padding:3px;flex-basis:58px}
+#entryPanel .entry button{padding:5px 8px;font-size:12px}
+@media(max-width:430px){#keypad.keypad{grid-template-columns:repeat(6,minmax(0,1fr))}#keypad.keypad button{height:32px;min-height:32px;font-size:16px}#keypad.keypad button.enter{font-size:10px}}
 
+header h1{display:flex;align-items:center;gap:9px}header img{width:42px;height:42px;border-radius:10px}#betPanel .bet{margin:8px 0}.bet strong{color:var(--ok)}.betsummary{font-size:12px;color:var(--muted)}.series{padding:9px;border-radius:10px;background:#14232c;margin:7px 0;border-left:3px solid var(--ok)}.series .numbers{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.series .numbers span{background:#294450;border-radius:6px;padding:6px 8px;font-size:17px;font-weight:700}.series .level{font-size:20px;font-weight:800;color:var(--ok)}.series .small{font-size:12px;color:var(--muted)}.panel h2{font-size:19px}.good{color:var(--ok)}.bad{color:var(--bad)}
+</style></head><body><header><h1><img src="icon-192.png" alt="678">RULETERO · 678</h1><small>V3.0 experimental · 3 series disjuntas · 1 caja</small></header>
+<section class="panel" id="betPanel"><h2>🎯 PRÓXIMA APUESTA</h2><div id="next" class="muted"></div></section>
+<section class="panel" id="entryPanel"><div class="entry"><div id="draft" class="draft">—</div><button id="undo">↶ Deshacer</button><button id="erase">Borrar</button></div><div id="keypad" class="keypad"></div><div id="toast" class="hidden"></div></section>
+<section class="panel" id="statsPanel"><div class="stats"><div class="stat"><b id="spins">0</b><small>Giros</small></div><div class="stat"><b id="balance">4.000</b><small>Caja</small></div><div class="stat"><b id="profit">0</b><small>Neto</small></div><div class="stat"><b id="wl">0 / 0</b><small>Ganados / agotados</small></div></div></section>
+<section class="panel" id="chancesPanel"><h2>🔔 Alertas</h2><div id="chances" class="muted">Sin alertas.</div></section>
+<details class="panel" id="observers"><summary>Seguimiento de sectores 6 · 7 · 8</summary><div id="strategies"></div></details>
+<section class="panel"><div class="row between"><label>Rueda <select id="wheel"><option value="american">Americana (0 / 00)</option><option value="european">Europea (0)</option></select></label><label>Caja inicial <input id="capital" type="number" min="1" value="4000"></label><button id="new">Nueva sesión</button></div></section>
+<section class="panel"><h2>Últimos giros</h2><div id="history" class="history muted">Sin resultados.</div><details><summary>Detalle de ciclos y apuestas</summary><div style="overflow:auto"><table><thead><tr><th>Giro</th><th>Nº</th><th>Series</th><th>Apuesta</th><th>Neto</th><th>Caja</th></tr></thead><tbody id="ledger"></tbody></table></div></details><div class="row"><button id="export">Exportar CSV</button><button id="reset">Borrar datos</button></div></section>
+<script>
+'use strict';
+const WHEELS={american:'0 28 9 26 30 11 7 20 32 17 5 22 34 15 3 24 36 13 1 00 27 10 25 29 12 8 19 31 18 6 21 33 16 4 23 35 14 2'.split(' '),european:'0 32 15 19 4 21 2 25 17 34 6 27 13 36 11 30 8 23 10 5 24 16 33 1 20 14 31 9 22 18 29 7 28 12 35 3 26'.split(' ')};
+const CONFIGS=[{size:6,wait:14,scale:[1,1,1,1,2,2,2,3,3,4,5,6,7,8,10,12,14,17,21,25,30,36,43,52]},{size:7,wait:12,scale:[1,1,1,2,2,3,3,4,5,6,8,10,12,15,18,23,28,35,44,54]},{size:8,wait:10,scale:[1,1,1,2,2,3,4,5,6,8,10,13,17,22,28,36,46,59]}];
+const KEY='ruletero678_v30_experimental', $=id=>document.getElementById(id),money=n=>n.toLocaleString('es-CL');
+const RED=new Set('1 3 5 7 9 12 14 16 18 19 21 23 25 27 30 32 34 36'.split(' '));
+let state={wheel:'american',capital:4000,history:[]},computed=null,draft='';
+function sorted(a){return a.slice().sort((x,y)=>x==='00'?1:y==='00'?-1:+x-+y)}
+function chanceAlerts(H,wheel){if(!H.length)return [];const nz=WHEELS[wheel].filter(n=>n!=='0'&&n!=='00'),res=[];
+function add(label,set,threshold){let gap=0;for(let k=H.length-1;k>=0;k--){if(set.has(H[k]))break;gap++}if(gap>=threshold)res.push(label+' · '+gap)}
+const range=(a,b)=>new Set(Array.from({length:b-a+1},(_,i)=>String(a+i)));
+add('Rojo',RED,8);add('Negro',new Set(nz.filter(n=>!RED.has(n))),8);add('Par',new Set(nz.filter(n=>+n%2===0)),8);add('Impar',new Set(nz.filter(n=>+n%2===1)),8);add('Menor',range(1,18),8);add('Mayor',range(19,36),8);
+for(let j=0;j<3;j++){add('D'+(j+1),range(j*12+1,(j+1)*12),11);add('C'+(j+1),new Set(Array.from({length:12},(_,i)=>String(i*3+j+1))),11)}return res}
+function simulate(H,wheel,capital){
+ const W=WHEELS[wheel],N=W.length,groups=CONFIGS.map(c=>Array.from({length:N},(_,j)=>Array.from({length:c.size},(_,k)=>W[(j+k)%N])));
+ const ages=CONFIGS.map(()=>Array(N).fill(0)),cool=CONFIGS.map(()=>Array(N).fill(false));
+ let active=[],balance=capital,peak=capital,dd=0,started=[0,0,0],wins=[0,0,0],fails=[0,0,0],rows=[],stopped=false,stopReason='';
+ function compatible(nums){return active.every(a=>!nums.some(n=>groups[a.i][a.j].includes(n)))}
+ function choose(){if(stopped)return;let cand=[];for(let i=0;i<3;i++)for(let j=0;j<N;j++)if(ages[i][j]>=CONFIGS[i].wait&&!cool[i][j]&&!active.some(a=>a.i===i&&a.j===j))cand.push({i,j,age:ages[i][j],score:ages[i][j]*CONFIGS[i].size/N});
+ cand.sort((a,b)=>b.score-a.score||b.age-a.age||a.i-b.i||a.j-b.j);
+ for(const x of cand){if(active.length===3)break;if(compatible(groups[x.i][x.j])){active.push({i:x.i,j:x.j,step:0});started[x.i]++}}
+ }
+ // Se seleccionan las apuestas tras registrar cada giro. Solo se apuestan en el giro SIGUIENTE.
+ for(let t=0;t<H.length;t++){
+  if(stopped)break;
+  const due=active.reduce((s,a)=>s+CONFIGS[a.i].size*CONFIGS[a.i].scale[a.step],0);
+  if(balance<due){stopped=true;stopReason='Capital insuficiente para cubrir las series activas';break}
+  const n=H[t],snapshot=active.map(a=>({...a})),stake=due;let net=0,events=[];
+  for(const a of active){const conf=CONFIGS[a.i],lev=conf.scale[a.step],bet=conf.size*lev,hit=groups[a.i][a.j].includes(n);
+   const delta=hit?36*lev-bet:-bet;net+=delta;
+   if(hit){wins[a.i]++;a.done=true;events.push(conf.size+': ganado paso '+(a.step+1))}
+   else if(a.step===conf.scale.length-1){fails[a.i]++;a.done=true;cool[a.i][a.j]=true;events.push(conf.size+': agotado')}
+   else a.step++;
+  }
+  balance+=net;active=active.filter(a=>!a.done);
+  for(let i=0;i<3;i++)for(let j=0;j<N;j++){if(groups[i][j].includes(n)){ages[i][j]=0;cool[i][j]=false}else ages[i][j]++}
+  peak=Math.max(peak,balance);dd=Math.max(dd,peak-balance);
+  rows.push({spin:t+1,n,stake,net,balance,series:snapshot.map(a=>CONFIGS[a.i].size+'-'+(a.step+1)).join(' / '),events:events.join(' / ')});
+  choose();
+ }
+ return {groups,active,rows,balance,profit:balance-capital,dd,started,wins,fails,stopped,stopReason,ages,cool};
+}
+function render(){computed=simulate(state.history,state.wheel,state.capital);const c=computed;
+ $('spins').textContent=state.history.length;$('balance').textContent=money(c.balance);$('profit').textContent=(c.profit>0?'+':'')+money(c.profit);$('wl').textContent=c.wins.reduce((a,b)=>a+b,0)+' / '+c.fails.reduce((a,b)=>a+b,0);
+ $('next').innerHTML=c.stopped?'<div class="bad">SESIÓN DETENIDA: '+c.stopReason+'</div>':c.active.length?c.active.map((a,k)=>{const conf=CONFIGS[a.i],v=conf.scale[a.step],nums=sorted(c.groups[a.i][a.j]);return `<div class="series"><div class="level">${v} ficha${v===1?'':'s'} / Nº</div><div class="small">Sector ${conf.size} · serie ${k+1} · paso ${a.step+1}/${conf.scale.length} · apuesta ${money(v*conf.size)}</div><div class="numbers">${nums.map(n=>`<span>${n}</span>`).join('')}</div></div>`}).join('')+'<div class="betsummary">Apuesta total: '+money(c.active.reduce((s,a)=>s+CONFIGS[a.i].size*CONFIGS[a.i].scale[a.step],0))+' fichas · '+c.active.length+'/3 series</div>':'';
+ $('chances').textContent=chanceAlerts(state.history,state.wheel).join(' · ')||'Sin alertas.';
+ $('strategies').innerHTML=CONFIGS.map((conf,i)=>`<div class="series">Sector ${conf.size} · espera ${conf.wait} · ${conf.scale.length} pasos<br><span class="small">Iniciadas ${c.started[i]} · ganadas ${c.wins[i]} · agotadas ${c.fails[i]} · activas ${c.active.filter(a=>a.i===i).length}</span></div>`).join('');
+ $('history').innerHTML=state.history.length?state.history.slice(-36).reverse().map(n=>`<span class="chip">${n}</span>`).join(''):'Sin resultados.';
+ $('ledger').innerHTML=c.rows.filter(r=>r.stake).slice(-80).reverse().map(r=>`<tr><td>${r.spin}</td><td>${r.n}</td><td>${r.series}</td><td>${r.stake}</td><td class="${r.net>=0?'good':'bad'}">${r.net}</td><td>${r.balance}</td></tr>`).join('');
+ $('draft').textContent=draft||'—';$('undo').disabled=!state.history.length;$('wheel').value=state.wheel;$('capital').value=state.capital;save();}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function toast(s){$('toast').textContent=s;$('toast').classList.remove('hidden');clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').classList.add('hidden'),2600)}
+function digit(n){if(computed.stopped)return;if(n==='00')draft='00';else if(draft==='00')draft=n;else draft=(draft+n).slice(-2);$('draft').textContent=draft||'—'}
+function add(){if(computed.stopped)return;if(!WHEELS[state.wheel].includes(draft)){toast('Número inválido');return}const candidate=state.history.concat(draft),test=simulate(candidate,state.wheel,state.capital);if(test.stopped&&test.rows.length< candidate.length){toast('Capital insuficiente. Giro no registrado.');return}state.history=candidate;draft='';render()}
+function newSession(){if(!confirm('¿Nueva sesión? Exporta antes los resultados si quieres conservarlos.'))return;state={wheel:$('wheel').value,capital:Math.max(1,Math.floor(Number($('capital').value)||4000)),history:[]};draft='';render()}
+function csv(){const h=['giro','numero','rueda','series','apuesta','neto','saldo','eventos'];const lines=[h.join(';'),...computed.rows.map(r=>[r.spin,r.n,state.wheel,r.series,r.stake,r.net,r.balance,r.events].join(';'))];const a=document.createElement('a'),blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});a.href=URL.createObjectURL(blob);a.download='Ruletero678_'+state.wheel+'_'+state.history.length+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+for(const n of ['1','2','3','4','5','6','7','8','9','0','00','ENTER']){const b=document.createElement('button');b.textContent=n;if(n==='ENTER'){b.className='primary enter';b.onclick=add}else b.onclick=()=>digit(n);$('keypad').appendChild(b)}
+$('erase').onclick=()=>{draft='';$('draft').textContent='—'};$('undo').onclick=()=>{if(!state.history.length)return;state.history.pop();draft='';render()};$('new').onclick=newSession;$('export').onclick=csv;$('reset').onclick=()=>{if(confirm('¿Borrar toda la sesión?')){state.history=[];draft='';render()}};
+$('wheel').onchange=()=>{if(state.history.length){$('wheel').value=state.wheel;toast('Cambiar rueda requiere nueva sesión')}else{state.wheel=$('wheel').value;render()}};
+$('capital').onchange=()=>{if(state.history.length){$('capital').value=state.capital;toast('Cambiar caja requiere nueva sesión')}else{state.capital=Math.max(1,Math.floor(Number($('capital').value)||4000));render()}};
+document.addEventListener('keydown',e=>{if(e.target.matches('input,select'))return;if(e.key==='Enter')add();else if(e.key==='Backspace')$('erase').click();else if(/^\d$/.test(e.key))digit(e.key)});
+try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&WHEELS[s.wheel]&&Array.isArray(s.history)&&s.history.every(n=>WHEELS[s.wheel].includes(n))&&Number.isInteger(s.capital)&&s.capital>0)state=s}catch(e){}render();
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
+</script></body></html>
